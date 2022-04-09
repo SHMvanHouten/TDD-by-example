@@ -1,6 +1,6 @@
 package com.github.shmvanhouten.tddmoney;
 
-public abstract class Money {
+public class Money {
     protected int amount;
     protected String currency;
 
@@ -9,7 +9,9 @@ public abstract class Money {
         this.currency = currency;
     }
 
-    public abstract Money times(int amount);
+    public Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
 
     public String currency() {
         return this.currency;
@@ -27,6 +29,11 @@ public abstract class Money {
     public boolean equals(Object other) {
         Money money = (Money) other;
         return this.amount == money.amount
-                && this.getClass() == money.getClass();
+                && currency.equals(money.currency);
+    }
+
+    @Override
+    public String toString() {
+        return amount + " " + currency;
     }
 }
