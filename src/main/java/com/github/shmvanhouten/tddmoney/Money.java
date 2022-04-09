@@ -17,8 +17,13 @@ public class Money implements Expression {
         return this.currency;
     };
 
-    public Expression plus(Money addend) {
-        return new Money(this.amount + addend.amount, currency);
+    public Sum plus(Money addend) {
+        return new Sum(this, addend);
+    }
+
+    @Override
+    public Money reduce(String to) {
+        return this;
     }
 
     public static Money franc(int amount) {
