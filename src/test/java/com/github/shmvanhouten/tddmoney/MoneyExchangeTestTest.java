@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Dollar/Franc duplication
 // * Common equals
  * common times
- *
+// * Compare Francs with Dollars
  */
 class MoneyExchangeTest {
 
@@ -43,5 +43,6 @@ class MoneyExchangeTest {
         assertFalse(new Dollar(5).equals(new Dollar(6)));
         assertTrue(new Franc(5).equals(new Franc(5)));
         assertFalse(new Franc(5).equals(new Franc(6)));
+        assertFalse(new Franc(5).equals(new Dollar(5)));
     }
 }
