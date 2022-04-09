@@ -1,7 +1,7 @@
 package com.github.shmvanhouten.tddmoney;
 
 public class Dollar {
-    public final int amount;
+    private final int amount;
 
     public Dollar(int amount) {
         this.amount = amount;
