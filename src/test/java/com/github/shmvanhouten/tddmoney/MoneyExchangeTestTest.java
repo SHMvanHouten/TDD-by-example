@@ -7,21 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * TODO:
  * $5 + 10 CHF = $10 if rate is 2:1
-// * $5 * 2 = $10
-// * Make amount private
-// * Dollar side-effects?
  * Money rounding?
-// * equals()
  * hashcode()
  * Equal null
  * Equal object
-// * 5 CHF * 2 = 10 CHF
-// * Dollar/Franc duplication
-// * Common equals
-// * common times
-// * Compare Francs with Dollars
-// * Currency?
-// * delete testFrancMultiplication?
  */
 class MoneyExchangeTest {
 
