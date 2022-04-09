@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * TODO:
  * $5 + 10 CHF = $10 if rate is 2:1
+ * $5 + $5 = $10
  * Money rounding?
  * hashcode()
  * Equal null
@@ -32,5 +33,14 @@ class MoneyExchangeTest {
     void testCurrency() {
         assertEquals("USD", Money.dollar(1).currency());
         assertEquals("CHF", Money.franc(1).currency());
+    }
+
+    @Test
+    void testSimpleAddition() {
+        Money five = Money.dollar(5);
+        Expression sum = five.plus(five);
+        Bank bank = new Bank();
+        Money reduced = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(10), reduced);
     }
 }
