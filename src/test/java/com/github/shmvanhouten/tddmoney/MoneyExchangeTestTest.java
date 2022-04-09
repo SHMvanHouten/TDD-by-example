@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Make amount private
 // * Dollar side-effects?
  * Money rounding?
+ * equals()
+ * hashcode()
  */
 class MoneyExchangeTest {
 
@@ -23,4 +25,8 @@ class MoneyExchangeTest {
         assertEquals(15, product.amount);
     }
 
+    @Test
+    void testEquality() {
+        assertTrue(new Dollar(5).equals(new Dollar(5)));
+    }
 }
