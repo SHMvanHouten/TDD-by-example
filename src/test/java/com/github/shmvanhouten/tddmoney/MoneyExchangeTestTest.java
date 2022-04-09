@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Equal object
 // * 5 CHF * 2 = 10 CHF
  * Dollar/Franc duplication
- * Common equals
- * common hashcode
+// * Common equals
+ * common times
  *
  */
 class MoneyExchangeTest {
@@ -41,5 +41,7 @@ class MoneyExchangeTest {
     void testEquality() {
         assertTrue(new Dollar(5).equals(new Dollar(5)));
         assertFalse(new Dollar(5).equals(new Dollar(6)));
+        assertTrue(new Franc(5).equals(new Franc(5)));
+        assertFalse(new Franc(5).equals(new Franc(6)));
     }
 }

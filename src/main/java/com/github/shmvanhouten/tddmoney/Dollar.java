@@ -1,7 +1,6 @@
 package com.github.shmvanhouten.tddmoney;
 
-public class Dollar {
-    private final int amount;
+public class Dollar extends Money {
 
     public Dollar(int amount) {
         this.amount = amount;
@@ -11,9 +10,4 @@ public class Dollar {
         return new Dollar(amount * multiplier);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        Dollar dollar = (Dollar) other;
-        return this.amount == dollar.amount;
-    }
 }

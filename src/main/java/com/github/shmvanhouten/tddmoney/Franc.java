@@ -1,7 +1,6 @@
 package com.github.shmvanhouten.tddmoney;
 
-public class Franc {
-    private final int amount;
+public class Franc extends Money {
 
     public Franc(int amount) {
         this.amount = amount;
@@ -11,9 +10,4 @@ public class Franc {
         return new Franc(amount * multiplier);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        Franc dollar = (Franc) other;
-        return this.amount == dollar.amount;
-    }
 }
