@@ -26,9 +26,9 @@ class MoneyExchangeTest {
 
     @Test
     void testEquality() {
-        assertTrue(Money.dollar(5).equals(Money.dollar(5)));
-        assertFalse(Money.dollar(5).equals(Money.dollar(6)));
-        assertFalse(Money.franc(5).equals(Money.dollar(5)));
+        assertEquals(Money.dollar(5), Money.dollar(5));
+        assertNotEquals(Money.dollar(5), Money.dollar(6));
+        assertNotEquals(Money.franc(5), Money.dollar(5));
     }
 
     @Test
