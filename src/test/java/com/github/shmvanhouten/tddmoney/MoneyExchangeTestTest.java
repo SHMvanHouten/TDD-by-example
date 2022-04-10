@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TODO:
- * $5 + 10 CHF = $10 if rate is 2:1
+// * $5 + 10 CHF = $10 if rate is 2:1
 // * $5 + $5 = $10
- * Return Money from $5 + $5
+// * Return Money from $5 + $5 <- did not do
 // * Bank.reduce(Money)
 // * Reduce money with conversion
 // * Reduce(Bank, String)
@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * hashcode()
  * Equal null
  * Equal object
- * Sum.plus
- * Expression.times
+// * Sum.plus
+// * Expression.times
  */
 class MoneyExchangeTest {
 
@@ -96,4 +96,16 @@ class MoneyExchangeTest {
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
         assertEquals(Money.dollar(10), result);
     }
+
+    @Test
+    void testSumPlusMoney() {
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+        Money result = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(15), result);
+    }
+
 }
