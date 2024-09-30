@@ -24,27 +24,27 @@ import static org.hamcrest.Matchers.not;
 class MoneyExchangeTest {
 
     @Test
-    void testMultiplication() {
+    void multiplication() {
         Money five = Money.dollar(5);
         assertThat(five.times(2), is(Money.dollar(10)));
         assertThat(five.times(3), is(Money.dollar(15)));
     }
 
     @Test
-    void testEquality() {
+    void equality() {
         assertThat(Money.dollar(5), is(Money.dollar(5)));
         assertThat(Money.dollar(5), is(not(Money.dollar(6))));
         assertThat(Money.franc(5), is(not(Money.dollar(5))));
     }
 
     @Test
-    void testCurrency() {
+    void currency() {
         assertThat(Money.dollar(1).currency(), is("USD"));
         assertThat(Money.franc(1).currency(), is("CHF"));
     }
 
     @Test
-    void testSimpleAddition() {
+    void simple_addition() {
         Money five = Money.dollar(5);
         Expression sum = five.plus(five);
         Bank bank = new Bank();
@@ -53,7 +53,7 @@ class MoneyExchangeTest {
     }
 
     @Test
-    void testPlusReturnsSum() {
+    void plus_returns_sum() {
         Money five = Money.dollar(5);
         Expression result = five.plus(five);
         Sum sum = (Sum) result;
@@ -62,7 +62,7 @@ class MoneyExchangeTest {
     }
 
     @Test
-    void testReduceSum() {
+    void reduce_sum() {
         Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
         Bank bank = new Bank();
         Money result = bank.reduce(sum, "USD");
@@ -70,14 +70,14 @@ class MoneyExchangeTest {
     }
 
     @Test
-    void testReduceMoney() {
+    void reduce_money() {
         Bank bank = new Bank();
         Money result = bank.reduce(Money.dollar(1), "USD");
         assertThat(result, is(Money.dollar(1)));
     }
 
     @Test
-    void testReduceMoneyDifferentCurrency() {
+    void reduce_money_different_currency() {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(Money.franc(2), "USD");
@@ -85,12 +85,12 @@ class MoneyExchangeTest {
     }
 
     @Test
-    void testIdentityRate() {
+    void identity_rate() {
         assertThat(new Bank().rate("USD", "USD"), is(1));
     }
 
     @Test
-    void testMixedAddition() {
+    void mixed_addition() {
         Expression fiveBucks = Money.dollar(5);
         Expression tenFrancs = Money.franc(10);
         Bank bank = new Bank();
@@ -100,7 +100,7 @@ class MoneyExchangeTest {
     }
 
     @Test
-    void testSumPlusMoney() {
+    void sum_plus_money() {
         Expression fiveBucks = Money.dollar(5);
         Expression tenFrancs = Money.franc(10);
         Bank bank = new Bank();
