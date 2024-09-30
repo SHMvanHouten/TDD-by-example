@@ -1,7 +1,12 @@
 package com.github.shmvanhouten.tddmoney;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -24,21 +29,21 @@ class MoneyExchangeTest {
     @Test
     void testMultiplication() {
         Money five = Money.dollar(5);
-        assertEquals(Money.dollar(10), five.times(2));
-        assertEquals(Money.dollar(15), five.times(3));
+        assertThat(five.times(2), is(Money.dollar(10)));
+        assertThat(five.times(3), is(Money.dollar(15)));
     }
 
     @Test
     void testEquality() {
-        assertEquals(Money.dollar(5), Money.dollar(5));
+        assertThat(Money.dollar(5), is(Money.dollar(5)));
         assertNotEquals(Money.dollar(5), Money.dollar(6));
         assertNotEquals(Money.franc(5), Money.dollar(5));
     }
 
     @Test
     void testCurrency() {
-        assertEquals("USD", Money.dollar(1).currency());
-        assertEquals("CHF", Money.franc(1).currency());
+        assertThat(Money.dollar(1).currency(), is("USD"));
+        assertThat(Money.franc(1).currency(), is("CHF"));
     }
 
     @Test
@@ -47,7 +52,7 @@ class MoneyExchangeTest {
         Expression sum = five.plus(five);
         Bank bank = new Bank();
         Money reduced = bank.reduce(sum, "USD");
-        assertEquals(Money.dollar(10), reduced);
+        assertThat(reduced, is(Money.dollar(10)));
     }
 
     @Test
@@ -55,8 +60,8 @@ class MoneyExchangeTest {
         Money five = Money.dollar(5);
         Expression result = five.plus(five);
         Sum sum = (Sum) result;
-        assertEquals(five, sum.augend);
-        assertEquals(five, sum.addend);
+        assertThat(sum.augend, is(five));
+        assertThat(sum.addend, is(five));
     }
 
     @Test
@@ -64,14 +69,14 @@ class MoneyExchangeTest {
         Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
         Bank bank = new Bank();
         Money result = bank.reduce(sum, "USD");
-        assertEquals(Money.dollar(7), result);
+        assertThat(result, is(Money.dollar(7)));
     }
 
     @Test
     void testReduceMoney() {
         Bank bank = new Bank();
         Money result = bank.reduce(Money.dollar(1), "USD");
-        assertEquals(Money.dollar(1), result);
+        assertThat(result, is(Money.dollar(1)));
     }
 
     @Test
@@ -79,12 +84,12 @@ class MoneyExchangeTest {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(Money.franc(2), "USD");
-        assertEquals(Money.dollar(1), result);
+        assertThat(result, is(Money.dollar(1)));
     }
 
     @Test
     void testIdentityRate() {
-        assertEquals(1, new Bank().rate("USD", "USD"));
+        assertThat(new Bank().rate("USD", "USD"), is(1));
     }
 
     @Test
@@ -94,7 +99,7 @@ class MoneyExchangeTest {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
-        assertEquals(Money.dollar(10), result);
+        assertThat(result, is(Money.dollar(10)));
     }
 
     @Test
@@ -105,7 +110,7 @@ class MoneyExchangeTest {
         bank.addRate("CHF", "USD", 2);
         Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
         Money result = bank.reduce(sum, "USD");
-        assertEquals(Money.dollar(15), result);
+        assertThat(result, is(Money.dollar(15)));
     }
 
 }
