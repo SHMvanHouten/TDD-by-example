@@ -1,5 +1,7 @@
 package com.github.shmvanhouten.tddmoney;
 
+import java.math.BigDecimal;
+
 public class Sum implements Expression {
     final Expression augend;
     final Expression addend;
@@ -12,8 +14,8 @@ public class Sum implements Expression {
 
     @Override
     public Money reduce(Bank bank, String to) {
-        int amount = augend.reduce(bank, to).amount
-                + addend.reduce(bank, to).amount;
+        BigDecimal amount = augend.reduce(bank, to).amount
+                .add(addend.reduce(bank, to).amount);
         return new Money(amount, to);
     }
 

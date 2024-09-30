@@ -2,6 +2,8 @@ package com.github.shmvanhouten.tddmoney;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 
@@ -11,18 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TODO:
-// * $5 + 10 CHF = $10 if rate is 2:1
-// * $5 + $5 = $10
-// * Return Money from $5 + $5 <- did not do
-// * Bank.reduce(Money)
-// * Reduce money with conversion
-// * Reduce(Bank, String)
+ * // * $5 + 10 CHF = $10 if rate is 2:1
+ * // * $5 + $5 = $10
+ * // * Return Money from $5 + $5 <- did not do
+ * // * Bank.reduce(Money)
+ * // * Reduce money with conversion
+ * // * Reduce(Bank, String)
  * Money rounding?
+ * 3 decimal points
+ * roundingMode?
  * hashcode()
  * Equal null
  * Equal object
-// * Sum.plus
-// * Expression.times
+ * // * Sum.plus
+ * // * Expression.times
  */
 class MoneyExchangeTest {
 
@@ -89,7 +93,7 @@ class MoneyExchangeTest {
 
     @Test
     void testIdentityRate() {
-        assertThat(new Bank().rate("USD", "USD"), is(1));
+        assertThat(new Bank().rate("USD", "USD"), is(BigDecimal.ONE));
     }
 
     @Test
@@ -113,4 +117,30 @@ class MoneyExchangeTest {
         assertThat(result, is(Money.dollar(15)));
     }
 
+    @Test
+    void one_franc_is_half_a_dollar() {
+        var oneFranc = Money.franc(1);
+        var bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+
+        Money result = bank.reduce(oneFranc, "USD");
+        assertThat(result, is(Money.dollar(new BigDecimal("0.5"))));
+    }
+
+    @ParameterizedTest(name = "{0} francs at exchange rate {1} becomes {2} dollars")
+    @CsvSource(value = {
+            "1, 3, 0.333",
+            "2, 3, 0.667"
+    }
+    )
+    void rounds_to_3_decimal_points(
+            int franc, int rate, BigDecimal expectedDollar
+    ) {
+        var oneFranc = Money.franc(franc);
+        var bank = new Bank();
+        bank.addRate("CHF", "USD", rate);
+
+        Money result = bank.reduce(oneFranc, "USD");
+        assertThat(result.amount, is(expectedDollar));
+    }
 }
