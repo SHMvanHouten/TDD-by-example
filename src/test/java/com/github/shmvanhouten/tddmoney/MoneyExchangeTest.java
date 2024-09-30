@@ -1,28 +1,25 @@
 package com.github.shmvanhouten.tddmoney;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.not;
 
 /**
  * TODO:
-// * $5 + 10 CHF = $10 if rate is 2:1
-// * $5 + $5 = $10
-// * Return Money from $5 + $5 <- did not do
-// * Bank.reduce(Money)
-// * Reduce money with conversion
-// * Reduce(Bank, String)
+ // * $5 + 10 CHF = $10 if rate is 2:1
+ // * $5 + $5 = $10
+ // * Return Money from $5 + $5 <- did not do
+ // * Bank.reduce(Money)
+ // * Reduce money with conversion
+ // * Reduce(Bank, String)
  * Money rounding?
  * hashcode()
  * Equal null
  * Equal object
-// * Sum.plus
-// * Expression.times
+ // * Sum.plus
+ // * Expression.times
  */
 class MoneyExchangeTest {
 
@@ -36,8 +33,8 @@ class MoneyExchangeTest {
     @Test
     void testEquality() {
         assertThat(Money.dollar(5), is(Money.dollar(5)));
-        assertNotEquals(Money.dollar(5), Money.dollar(6));
-        assertNotEquals(Money.franc(5), Money.dollar(5));
+        assertThat(Money.dollar(5), is(not(Money.dollar(6))));
+        assertThat(Money.franc(5), is(not(Money.dollar(5))));
     }
 
     @Test
